@@ -130,3 +130,14 @@ adb logcat --pid=$(adb shell pidof -s com.example.app)
 
 
 ## 
+
+사진 촬영은 되는데, 저장 경로를 확인하기가 어렵네요.
+내장 메모리에 저장되나요? 저장 경로를 알려주세요.
+
+현재 코드에서는 앱의 임시 디렉토리(getTemporaryDirectory())에 저장되고 있습니다. 이 경로는 앱이 종료되면 삭제될 수 있습니다.
+영구적으로 저장하려면 다음과 같이 camera_screen.dart 파일을 수정하여 갤러리에 저장할 수 있습니다:
+안드로이드에서의 저장 경로는 다음과 같습니다:
+이 경로는 다음과 같이 접근할 수 있습니다:
+파일 관리자 앱에서 내부 저장소 > Android > data > com.example.flutter_recordit > files > RecordIt 폴더
+또는 PC와 연결했을 때: 내 PC > 휴대폰 > 내부 저장소 > Android > data > com.example.flutter_recordit > files > RecordIt
+참고: Android 11(API 30) 이상에서는 보안상의 이유로 /Android/data 폴더에 대한 접근이 제한될 수 있습니다. 이 경우 갤러리 앱에서 접근할 수 있도록 MediaStore API를 사용하는 것이 좋습니다.
